@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>with.momma</title>
     <!-- KODE UNTUK LOGO DI PENCARIAN (FAVICON) -->
-    <link rel="icon" href="img/logo.jpg" type="image/jpg">
-    <link rel="apple-touch-icon" href="https://placehold.co/180x180/FF6B6B/FFFFFF?text=W">
+    <!-- Ganti href ke path logo Anda di folder img -->
+    <link rel="icon" href="img/logo.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="img/logo.jpg">
     <!-- END KODE FAVICON -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -17,8 +18,12 @@
         html {
             scroll-behavior: smooth;
         }
+        /* Mencegah Konten Dicopy */
         body {
             font-family: 'Inter', sans-serif;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
         }
         .font-serif {
             font-family: 'Playfair Display', serif;
@@ -120,38 +125,50 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        @keyframes price-glow {
-            0% { text-shadow: 0 0 5px rgba(255, 107, 107, 0.4); }
-            50% { text-shadow: 0 0 20px rgba(255, 107, 107, 0.8); }
-            100% { text-shadow: 0 0 5px rgba(255, 107, 107, 0.4); }
-        }
-        .price-glow-animation {
-            animation: price-glow 3s ease-in-out infinite;
+        /* Teks Gradien Baru */
+        .text-gradient-pink {
+            background: linear-gradient(90deg, #FF6B6B 0%, #d35a9b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        @keyframes blob-float {
-            0% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(15px, 20px) scale(1.1); }
-            50% { transform: translate(-10px, -15px) scale(0.9); }
-            75% { transform: translate(20px, -10px) scale(1.05); }
-            100% { transform: translate(0, 0) scale(1); }
+        /* Hover Effect Kartu Harga Baru */
+        .pricing-card {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
-        .decorative-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            animation: blob-float 20s ease-in-out infinite;
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+            border-color: #FF6B6B;
+        }
+        .premium-card:hover {
+            border-color: #8E2DE2;
+        }
+        
+        /* Animasi Berdenyut CTA Mengambang */
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 15px rgba(255, 107, 107, 0);
+            }
+        }
+        .floating-cta-button {
+            animation: pulse-glow 2.5s infinite;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800" oncontextmenu="return false;">
 
     <!-- Header -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3">
-                <img src="img/logo.jpg" alt="Logo with.momma" class="h-8 w-8 rounded-full">
+                <img src="img/logo.jpg" alt="Logo with.momma" class="h-8 w-8 rounded-full object-cover">
                 <h1 class="text-2xl font-bold text-pink-600 font-serif">with.momma</h1>
             </a>
             <a href="#harga" class="cta-gradient text-white font-semibold px-6 py-2 rounded-full shadow-lg cta-button hidden md:inline-block">Lihat Paket</a>
@@ -182,13 +199,12 @@
         <!-- Hero Section -->
         <section class="hero-gradient pt-20 pb-16 md:py-24">
             <video autoplay muted loop id="hero-video">
-              <!-- Ganti dengan URL video Anda. Contoh dari Pexels -->
               <source src="https://videos.pexels.com/video-files/3996677/3996677-hd_1920_1080_25fps.mp4" type="video/mp4">
               Your browser does not support the video tag.
             </video>
             <div class="hero-content">
                 <div class="container mx-auto px-6 text-center">
-                    <h2 class="text-4xl md:text-6xl font-serif font-bold text-gray-900 leading-tight mb-4" data-aos="fade-up">Jalani Kehamilan Pertama dengan Tenang & Bahagia</h2>
+                    <h2 class="text-4xl md:text-6xl font-serif font-bold text-gradient-pink leading-tight mb-4" data-aos="fade-up">Jalani Kehamilan Pertama dengan Tenang & Bahagia</h2>
                     <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="200">Selamat datang, calon Bunda! Di with.momma, kami menemani setiap langkah Anda dengan panduan kehamilan yang lengkap, terpercaya, dan penuh empati.</p>
                     <div class="flex justify-center items-center gap-4" data-aos="fade-up" data-aos-delay="400">
                         <a href="#harga" class="cta-gradient text-white font-bold text-lg px-8 py-4 rounded-full shadow-xl cta-button">Miliki Panduan Lengkapnya</a>
@@ -196,11 +212,40 @@
                 </div>
             </div>
         </section>
+        
+        <!-- 4 Ebook Showcase Section -->
+        <section class="py-20 bg-white" data-aos="fade-in" data-aos-duration="1000">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="text-3xl font-bold font-serif mb-12 section-title" data-aos="fade-up">Panduan Lengkap di Setiap Langkah Anda</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                    <!-- Ebook 1 -->
+                    <div class="text-center float-animation" style="animation-delay: 0s;" data-aos="fade-up">
+                        <img src="https://placehold.co/300x400/FFF1F8/FF6B6B?text=Ebook+Trimester+1" alt="Ebook Trimester 1" class="rounded-lg shadow-lg mx-auto transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                        <p class="font-semibold mt-4">Trimester Pertama</p>
+                    </div>
+                    <!-- Ebook 2 -->
+                    <div class="text-center float-animation" style="animation-delay: 0.2s;" data-aos="fade-up" data-aos-delay="100">
+                        <img src="https://placehold.co/300x400/FFF1F8/FF6B6B?text=Ebook+Trimester+2" alt="Ebook Trimester 2" class="rounded-lg shadow-lg mx-auto transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                         <p class="font-semibold mt-4">Trimester Kedua</p>
+                    </div>
+                    <!-- Ebook 3 -->
+                    <div class="text-center float-animation" style="animation-delay: 0.4s;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="https://placehold.co/300x400/FFF1F8/FF6B6B?text=Ebook+Trimester+3" alt="Ebook Trimester 3" class="rounded-lg shadow-lg mx-auto transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                         <p class="font-semibold mt-4">Trimester Ketiga</p>
+                    </div>
+                    <!-- Ebook 4 -->
+                    <div class="text-center float-animation" style="animation-delay: 0.6s;" data-aos="fade-up" data-aos-delay="300">
+                        <img src="https://placehold.co/300x400/FFF1F8/FF6B6B?text=Persiapan+Persalinan" alt="Ebook Persiapan Persalinan" class="rounded-lg shadow-lg mx-auto transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                         <p class="font-semibold mt-4">Persiapan Persalinan</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Due Date Calculator Section -->
-        <section id="kalkulator-hpl" class="py-20 bg-white">
+        <section id="kalkulator-hpl" class="py-20 bg-pink-50" data-aos="zoom-in-up">
             <div class="container mx-auto px-6 max-w-2xl text-center">
-                <div class="bg-pink-50 p-8 rounded-2xl shadow-lg" data-aos="fade-up">
+                <div class="bg-white p-8 rounded-2xl shadow-lg">
                     <h3 class="text-3xl font-bold font-serif mb-4 section-title">Kapan Si Kecil Akan Lahir?</h3>
                     <p class="text-gray-600 mb-6">Gunakan kalkulator Hari Perkiraan Lahir (HPL) kami untuk mendapatkan estimasi tanggal persalinan Anda. Cukup masukkan hari pertama haid terakhir Anda.</p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -213,10 +258,10 @@
         </section>
 
         <!-- A Letter For You Section -->
-        <section class="py-20 bg-pink-50">
-            <div class="container mx-auto px-6 max-w-3xl text-center" data-aos="fade-up">
+        <section class="py-20 bg-white" data-aos="fade-up">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
                  <h3 class="text-3xl font-bold font-serif mb-6 section-title">Sebuah Surat untukmu, Calon Bunda...</h3>
-                 <div class="bg-white p-8 rounded-lg shadow-xl text-left text-gray-700 italic" style="line-height: 1.8;">
+                 <div class="bg-pink-50 p-8 rounded-lg shadow-xl text-left text-gray-700 italic" style="line-height: 1.8;">
                     <p>"Untukmu yang sedang membaca ini, saya tahu ada jutaan pertanyaan di kepalamu... rasa cemas yang bercampur dengan kebahagiaan tak terkira. Saya pernah di sana. Saya mengerti.</p>
                     <p class="mt-4">Ebook ini bukan sekadar kumpulan tulisan, ini adalah rangkuman dari semua harapan, doa, dan riset yang saya lakukan agar kamu bisa melewati perjalanan ini dengan senyuman dan kepercayaan diri.</p>
                     <p class="mt-4">Kamu jauh lebih kuat dari yang kamu bayangkan, dan yang terpenting, kamu tidak sendirian dalam perjalanan ini."</p>
@@ -226,12 +271,12 @@
         </section>
 
         <!-- About with.momma Section -->
-        <section class="py-20 bg-white overflow-hidden">
+        <section class="py-20 bg-pink-50 overflow-hidden" data-aos="fade-right">
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
-                <div class="w-full md:w-1/3 text-center" data-aos="fade-right">
+                <div class="w-full md:w-1/3 text-center">
                     <img src="https://placehold.co/300x300/FFF1F8/FF6B6B?text=with.momma" alt="Founder of with.momma" class="rounded-full shadow-lg mx-auto w-48 h-48 md:w-64 md:h-64 object-cover transform transition-transform duration-500 hover:rotate-3 hover:scale-105">
                 </div>
-                <div class="w-full md:w-2/3" data-aos="fade-left">
+                <div class="w-full md:w-2/3">
                     <h3 class="text-3xl font-bold font-serif mb-4 section-title text-center md:text-left">Dari Bunda, Untuk Para Calon Bunda</h3>
                     <p class="text-gray-600">Misi kami sederhana: menjadi 'sahabat digital' Anda, menyediakan informasi yang akurat, menenangkan, dan memberdayakan. Agar Anda tidak hanya 'bertahan' selama kehamilan, tapi benar-benar menikmatinya.</p>
                 </div>
@@ -239,9 +284,9 @@
         </section>
 
         <!-- Reviewed by Section -->
-        <section class="py-20 bg-pink-50">
+        <section class="py-20 bg-white" data-aos="fade-left">
             <div class="container mx-auto px-6 max-w-4xl">
-                <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8" data-aos="fade-up">
+                <div class="bg-pink-50 rounded-2xl shadow-xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
                     <img src="https://placehold.co/150x150/FF6B6B/FFFFFF?text=Bidan" alt="Foto Bidan Profesional" class="w-32 h-32 rounded-full object-cover flex-shrink-0">
                     <div>
                         <h3 class="text-2xl font-bold font-serif mb-2">Informasi Terpercaya & Direview oleh Profesional</h3>
@@ -254,9 +299,9 @@
         </section>
 
         <!-- Solution Section -->
-        <section class="py-20 bg-white overflow-hidden">
+        <section class="py-20 bg-pink-50 overflow-hidden" data-aos="fade-in">
             <div class="container mx-auto px-6">
-                <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
+                <div class="text-center max-w-3xl mx-auto">
                     <h3 class="text-3xl font-bold font-serif mb-4 section-title">Inilah yang Akan Anda Dapatkan</h3>
                     <p class="text-gray-600 mb-12">Sebuah ekosistem dukungan lengkap untuk membuat 9 bulan perjalanan Anda lebih tenang, terinformasi, dan penuh kebahagiaan.</p>
                     <button id="open-modal-btn" class="mb-12 bg-pink-500 text-white font-bold px-8 py-3 rounded-lg hover:bg-pink-600 transition-colors shadow-lg">
@@ -264,19 +309,19 @@
                     </button>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                     <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                         <h4 class="font-bold text-xl mb-3 text-pink-700">4 Ebook Panduan Lengkap</h4>
                         <p class="text-gray-600">Panduan mendalam per-trimester hingga persiapan persalinan.</p>
                     </div>
-                    <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                         <h4 class="font-bold text-xl mb-3 text-pink-700">Nutrisi & Resep Sehat</h4>
                         <p class="text-gray-600">Rekomendasi makanan, vitamin, serta olahraga yang aman.</p>
                     </div>
-                    <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                         <h4 class="font-bold text-xl mb-3 text-pink-700">Checklist & Printable</h4>
                         <p class="text-gray-600">Daftar perlengkapan bayi hingga persiapan tas rumah sakit.</p>
                     </div>
-                    <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
                         <h4 class="font-bold text-xl mb-3 text-pink-700">Akses Grup Komunitas</h4>
                         <p class="text-gray-600">Bergabung dengan para bunda hebat lainnya di grup eksklusif.</p>
                     </div>
@@ -285,19 +330,19 @@
         </section>
 
         <!-- Testimonials -->
-        <section class="py-20 bg-pink-50 overflow-hidden">
+        <section class="py-20 bg-white overflow-hidden" data-aos="fade-up">
             <div class="container mx-auto px-6">
-                <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
+                <div class="text-center max-w-3xl mx-auto">
                     <h3 class="text-3xl font-bold font-serif mb-12 section-title">Apa Kata Para Bunda with.momma?</h3>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Text Testimonial 1 -->
-                    <div class="bg-white p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bg-pink-50 p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="100">
                         <p class="text-gray-700 italic mb-4">"Ebook ini benar-benar jadi penyelamat! Semua kepanikan saya terjawab. Wajib punya untuk kehamilan pertama."</p>
                         <p class="font-bold">- Riana, 29thn (Ibu Baru)</p>
                     </div>
                     <!-- Video Testimonial -->
-                    <div class="bg-white p-8 rounded-lg transform transition-transform hover:scale-105 flex flex-col justify-center items-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bg-pink-50 p-8 rounded-lg transform transition-transform hover:scale-105 flex flex-col justify-center items-center" data-aos="fade-up" data-aos-delay="200">
                         <div class="relative w-full h-48 bg-gray-200 rounded-lg flex justify-center items-center cursor-pointer group">
                              <img src="https://placehold.co/400x225/FFC8D8/8C3A5A?text=Tonton+Cerita+Bima" alt="Video Testimonial" class="absolute w-full h-full object-cover rounded-lg">
                              <div class="absolute w-16 h-16 bg-white/50 rounded-full flex justify-center items-center backdrop-blur-sm group-hover:bg-white transition-colors">
@@ -308,7 +353,7 @@
                         <p class="font-bold text-center">- Bima, 32thn (Calon Ayah)</p>
                     </div>
                     <!-- Text Testimonial 2 -->
-                    <div class="bg-white p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-pink-50 p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="300">
                         <p class="text-gray-700 italic mb-4">"Komunitasnya luar biasa! Bisa berbagi cerita dan saling menguatkan dengan sesama bumil. Sangat membantu!"</p>
                         <p class="font-bold">- Larasati, 31thn (Hamil Anak Kedua)</p>
                     </div>
@@ -317,7 +362,7 @@
         </section>
 
         <!-- Bonus Section -->
-        <section class="py-20 bg-white">
+        <section class="py-20 bg-pink-50" data-aos="zoom-in">
             <div class="container mx-auto px-6">
                 <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
                     <h3 class="text-3xl font-bold font-serif mb-4 section-title">Dan Bukan Hanya Itu Saja!</h3>
@@ -325,21 +370,21 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     <!-- Bonus 1 -->
-                    <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-white" data-aos="fade-up" data-aos-delay="100">
                         <img src="https://placehold.co/100x100/FFF1F8/FF6B6B?text=Audio" alt="Audio Relaksasi" class="mx-auto rounded-full mb-4">
                         <h4 class="font-bold text-lg">Panduan Audio Relaksasi</h4>
                         <p class="text-gray-600">Audio MP3 untuk menenangkan diri dan terkoneksi dengan janin.</p>
                         <p class="font-semibold mt-2">Senilai: Rp 125.000</p>
                     </div>
                     <!-- Bonus 2 -->
-                    <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-white" data-aos="fade-up" data-aos-delay="200">
                          <img src="https://placehold.co/100x100/FFF1F8/FF6B6B?text=Resep" alt="Meal Plan" class="mx-auto rounded-full mb-4">
                         <h4 class="font-bold text-lg">Meal Plan & Resep Sehat</h4>
                         <p class="text-gray-600">Kumpulan resep praktis dan sehat untuk setiap trimester.</p>
                         <p class="font-semibold mt-2">Senilai: Rp 150.000</p>
                     </div>
                     <!-- Bonus 3 -->
-                    <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-white" data-aos="fade-up" data-aos-delay="300">
                          <img src="https://placehold.co/100x100/FFF1F8/FF6B6B?text=Checklist" alt="Checklist" class="mx-auto rounded-full mb-4">
                         <h4 class="font-bold text-lg">Checklist Tas RS (Printable)</h4>
                         <p class="text-gray-600">Checklist cantik siap cetak agar tidak ada yang terlupa.</p>
@@ -350,7 +395,7 @@
         </section>
 
         <!-- CTA / Pricing Section -->
-        <section id="harga" class="py-20 hero-gradient overflow-hidden">
+        <section id="harga" class="py-20 hero-gradient overflow-hidden" data-aos="fade-in" data-aos-duration="1200">
             <div class="container mx-auto px-6">
                 <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
                     <h3 class="text-4xl font-serif font-bold mb-4">Pilih Paket Perjalanan Anda</h3>
@@ -358,33 +403,33 @@
                 </div>
                 <div class="flex flex-col lg:flex-row justify-center items-center lg:items-stretch gap-8 max-w-5xl mx-auto">
                     <!-- Paket Esensial -->
-                    <div class="bg-white rounded-2xl shadow-xl p-8 w-full lg:w-1/2 flex flex-col" data-aos="zoom-in-up" data-aos-delay="100">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 w-full lg:w-1/2 flex flex-col pricing-card" data-aos="zoom-in-up" data-aos-delay="100">
                         <h4 class="text-2xl font-bold font-serif text-center">Paket Esensial</h4>
                         <p class="text-center text-gray-500 mb-6">Untuk awal yang percaya diri.</p>
                         <p class="text-4xl font-bold text-pink-600 text-center my-2">Rp 99.000</p>
                         <p class="text-center text-gray-500 line-through">Total Nilai Rp 609.000</p>
                         <ul class="mt-8 space-y-3 text-gray-700 flex-grow">
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>4 Ebook Panduan Kehamilan</li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Akses Grup Komunitas</li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Bonus Audio Relaksasi</li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Bonus Meal Plan & Resep</li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Bonus Checklist Tas RS</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>4 Ebook Panduan Kehamilan</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Akses Grup Komunitas</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Bonus Audio Relaksasi</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Bonus Meal Plan & Resep</li>
+                            <li class="flex items-center"><svg class="w-6 h-6 text-pink-500 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Bonus Checklist Tas RS</li>
                         </ul>
                         <a href="#" class="mt-8 cta-gradient w-full text-center text-white font-bold py-4 rounded-full shadow-xl cta-button">Pilih Paket Esensial</a>
                     </div>
                     
                     <!-- Paket Premium -->
-                    <div class="bg-gray-800 text-white rounded-2xl shadow-2xl p-8 w-full lg:w-1/2 border-4 border-purple-500 relative flex flex-col" data-aos="zoom-in-up" data-aos-delay="200">
+                    <div class="bg-gray-800 text-white rounded-2xl shadow-2xl p-8 w-full lg:w-1/2 relative flex flex-col pricing-card premium-card" data-aos="zoom-in-up" data-aos-delay="200">
                         <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-purple-500 text-white text-sm font-bold px-4 py-1 rounded-full">PALING POPULER</div>
                         <h4 class="text-2xl font-bold font-serif text-center">Paket Premium</h4>
                         <p class="text-center text-gray-300 mb-6">Dukungan penuh & akses langsung.</p>
                         <p class="text-4xl font-bold text-purple-400 text-center my-2">Rp 149.000</p>
                          <p class="text-center text-gray-400 line-through">Total Nilai >Rp 1.000.000</p>
                         <ul class="mt-8 space-y-3 text-gray-200 flex-grow">
-                            <li class="flex items-center font-bold"><svg class="w-5 h-5 text-purple-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Semua di Paket Esensial, PLUS:</li>
-                            <li class="flex items-center ml-4"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Undangan Webinar Bulanan</li>
-                             <li class="flex items-center ml-4"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Sesi Tanya Jawab dg Bidan</li>
-                             <li class="flex items-center ml-4"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Materi & Rekaman Eksklusif</li>
+                            <li class="flex items-center font-bold"><svg class="w-6 h-6 text-purple-400 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Semua di Paket Esensial, PLUS:</li>
+                            <li class="flex items-center ml-4"><svg class="w-6 h-6 text-purple-300 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Undangan Webinar Bulanan</li>
+                             <li class="flex items-center ml-4"><svg class="w-6 h-6 text-purple-300 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Sesi Tanya Jawab dg Bidan</li>
+                             <li class="flex items-center ml-4"><svg class="w-6 h-6 text-purple-300 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>Materi & Rekaman Eksklusif</li>
                         </ul>
                         <a href="#" class="mt-8 premium-gradient w-full text-center text-white font-bold py-4 rounded-full shadow-xl cta-button premium-button">Saya Mau Paket Premium!</a>
                     </div>
@@ -396,7 +441,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="py-20 bg-white overflow-hidden">
+        <section class="py-20 bg-white overflow-hidden" data-aos="fade-up">
             <div class="container mx-auto px-6 max-w-3xl">
                 <h3 class="text-3xl font-bold font-serif mb-8 text-center section-title" data-aos="fade-up">Masih Ada Pertanyaan?</h3>
                 <div class="space-y-4">
@@ -420,9 +465,17 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-6 text-center">
-             <img src="img/logo.jpg" alt="Logo with.momma" class="h-12 w-12 rounded-full mx-auto mb-4">
+             <img src="img/logo.jpg" alt="Logo with.momma" class="h-12 w-12 rounded-full mx-auto mb-4 object-cover">
              <h3 class="text-2xl font-bold font-serif mb-4">with.momma</h3>
-            <p>&copy; 2025 with.momma. Semua Hak Cipta Dilindungi.</p>
+            <div class="flex justify-center items-center gap-2">
+                <p>&copy; 2025 with.momma. Semua Hak Cipta Dilindungi.</p>
+                <!-- Baby Icon Bonus Trigger -->
+                <button id="hidden-bonus-trigger-footer" title="Ada kejutan untukmu!" class="text-gray-600 hover:text-gray-400 transition-colors transform hover:scale-110">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12C20,13.43 19.53,14.77 18.75,15.93C18.17,14.28 16.5,13 14.5,13C12.5,13 10.83,14.28 10.25,15.93C9.47,14.77 9,13.43 9,12A8,8 0 0,1 12,4Z" />
+                    </svg>
+                </button>
+            </div>
             <div class="mt-4">
                 <a href="#" class="text-gray-400 hover:text-white mx-2">Kebijakan Privasi</a>
                 <a href="#" class="text-gray-400 hover:text-white mx-2">Syarat & Ketentuan</a>
@@ -430,11 +483,20 @@
         </div>
     </footer>
 
+    <!-- Floating CTA Button -->
+    <a href="https://linktr.ee/with.momma" target="_blank" rel="noopener noreferrer" 
+       class="fixed bottom-5 left-5 z-40 flex items-center gap-3 px-5 py-3 rounded-full cta-gradient text-white font-bold shadow-2xl transition-transform duration-300 hover:scale-110 floating-cta-button">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        <span class="hidden sm:inline">Pesan Sekarang</span>
+    </a>
+
     <!-- Back to Top Button -->
     <button id="back-to-top" class="bg-pink-600 text-white w-12 h-12 rounded-full shadow-lg cta-button">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
     </button>
-
+    
     <!-- Ebook Sneak Peek Modal -->
     <div id="ebook-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 p-4">
         <div class="modal-content bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto" data-aos="zoom-in">
@@ -450,7 +512,22 @@
         </div>
     </div>
 
-
+    <!-- Hidden Bonus Modal -->
+    <div id="bonus-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 p-4">
+        <div class="modal-content bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg shadow-2xl w-full max-w-md text-center p-8 relative" data-aos="zoom-in-up">
+            <button id="close-bonus-modal-btn" class="absolute top-4 right-4 text-2xl font-bold leading-none text-gray-500 hover:text-gray-800">&times;</button>
+            <div class="text-6xl mb-4">🎉</div>
+            <h3 class="text-2xl font-bold font-serif text-pink-600 mb-2">Selamat, Anda Menemukannya!</h3>
+            <p class="text-gray-700 mb-4">Sebagai hadiah karena telah teliti, kami punya kejutan spesial untuk Anda.</p>
+            <p class="text-gray-600 mb-4">Gunakan kode di bawah ini saat checkout untuk mendapatkan diskon tambahan:</p>
+            <div class="bg-white border-2 border-dashed border-pink-400 p-4 rounded-lg">
+                <p id="promo-code" class="text-3xl font-bold text-gray-800 tracking-widest">BUNDAHEBAT</p>
+            </div>
+            <button id="copy-code-btn" class="mt-4 cta-gradient text-white font-semibold px-6 py-2 rounded-full shadow-lg cta-button">Salin Kode</button>
+            <p id="copy-feedback" class="text-sm text-green-600 mt-2 h-4"></p>
+        </div>
+    </div>
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -529,6 +606,38 @@
             if (e.target === modal) {
                 modal.classList.add('hidden');
             }
+        });
+
+        // Hidden Bonus Modal
+        const bonusModal = document.getElementById('bonus-modal');
+        const openBonusBtn = document.getElementById('hidden-bonus-trigger-footer');
+        const closeBonusBtn = document.getElementById('close-bonus-modal-btn');
+        const copyCodeBtn = document.getElementById('copy-code-btn');
+        const promoCode = document.getElementById('promo-code');
+        const copyFeedback = document.getElementById('copy-feedback');
+
+        openBonusBtn.addEventListener('click', () => bonusModal.classList.remove('hidden'));
+        closeBonusBtn.addEventListener('click', () => bonusModal.classList.add('hidden'));
+        bonusModal.addEventListener('click', (e) => {
+            if (e.target === bonusModal) {
+                bonusModal.classList.add('hidden');
+            }
+        });
+
+        copyCodeBtn.addEventListener('click', () => {
+            const tempInput = document.createElement('input');
+            tempInput.value = promoCode.innerText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            copyCodeBtn.innerText = 'Kode Tersalin!';
+            copyFeedback.innerText = 'Selamat! Kode siap digunakan.';
+            setTimeout(() => {
+                copyCodeBtn.innerText = 'Salin Kode';
+                copyFeedback.innerText = '';
+            }, 3000);
         });
 
     </script>
