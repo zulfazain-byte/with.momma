@@ -160,6 +160,18 @@
         .floating-cta-button {
             animation: pulse-glow 2.5s infinite;
         }
+
+        .tool-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800" oncontextmenu="return false;">
@@ -246,26 +258,68 @@
                 </div>
             </section>
 
-            <!-- Due Date Calculator Section -->
-            <section id="kalkulator-hpl" class="py-20 bg-pink-50" data-aos="zoom-in-up">
-                <div class="container mx-auto px-6 max-w-2xl text-center">
-                    <div class="bg-white p-8 rounded-2xl shadow-lg">
-                        <h3 class="text-3xl font-bold font-serif mb-4 section-title">Kapan Si Kecil Akan Lahir?</h3>
-                        <p class="text-gray-600 mb-6">Gunakan kalkulator Hari Perkiraan Lahir (HPL) kami untuk mendapatkan estimasi tanggal persalinan Anda. Cukup masukkan hari pertama haid terakhir Anda.</p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                            <input type="date" id="last-period-date" class="p-3 border border-gray-300 rounded-lg w-full sm:w-auto">
-                            <button id="calculate-due-date-btn" class="bg-pink-500 text-white font-bold px-8 py-3 rounded-lg w-full sm:w-auto hover:bg-pink-600 transition-colors">Hitung HPL</button>
+            <!-- Free Tools Section -->
+            <section id="free-tools" class="py-20 bg-pink-50" data-aos="fade-in" data-aos-duration="1000">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold font-serif text-center mb-12 section-title" data-aos="fade-up">Tools Gratis untuk Bunda</h2>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                        <!-- Due Date Calculator -->
+                        <div class="tool-card" data-aos="fade-up">
+                            <h3 class="text-2xl font-bold font-serif mb-4 text-pink-600">Kalkulator Hari Perkiraan Lahir (HPL)</h3>
+                            <p class="text-gray-600 mb-6">Masukkan hari pertama haid terakhir Anda untuk mendapat estimasi tanggal persalinan.</p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <input type="date" id="last-period-date" class="w-full p-3 border border-gray-300 rounded-lg">
+                                <button id="calculate-due-date-btn" class="w-full sm:w-auto cta-gradient text-white font-bold px-8 py-3 rounded-lg cta-button flex-shrink-0">Hitung HPL</button>
+                            </div>
+                            <div id="due-date-result" class="mt-6 text-xl font-semibold text-pink-700 h-8 text-center"></div>
                         </div>
-                        <div id="due-date-result" class="mt-6 text-xl font-semibold text-pink-700 h-8"></div>
+
+                        <!-- Weight Gain Calculator -->
+                        <div class="tool-card" data-aos="fade-up" data-aos-delay="100">
+                            <h3 class="text-2xl font-bold font-serif mb-4 text-pink-600">Kalkulator Berat Badan Ideal</h3>
+                            <p class="text-gray-600 mb-6">Pantau kenaikan berat badan Anda agar tetap sehat selama kehamilan.</p>
+                            <div class="space-y-4">
+                                <input type="number" id="height-cm" placeholder="Tinggi Badan (cm)" class="w-full p-3 border border-gray-300 rounded-lg">
+                                <input type="number" id="pre-weight-kg" placeholder="Berat Badan Pra-Hamil (kg)" class="w-full p-3 border border-gray-300 rounded-lg">
+                                <button id="calculate-weight-gain-btn" class="w-full cta-gradient text-white font-bold py-3 rounded-lg cta-button">Hitung Rekomendasi</button>
+                            </div>
+                            <div id="weight-gain-result" class="mt-6 text-gray-700"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Food Safety Checker -->
+                        <div class="tool-card" data-aos="fade-up" data-aos-delay="200">
+                            <h3 class="text-2xl font-bold font-serif mb-4 text-pink-600">Cek Makanan Aman</h3>
+                            <p class="text-gray-600 mb-6">Ragu apakah makanan ini aman untuk Bunda? Cek di sini!</p>
+                            <div class="flex gap-4">
+                                <input type="text" id="food-input" placeholder="Contoh: sushi, kopi, seblak..." class="w-full p-3 border border-gray-300 rounded-lg">
+                                <button id="check-food-btn" class="cta-gradient text-white font-bold px-6 py-3 rounded-lg cta-button flex-shrink-0">Cek</button>
+                            </div>
+                            <div id="food-safety-result" class="mt-6"></div>
+                        </div>
+                        
+                        <!-- Fetal Development Tracker -->
+                        <div class="tool-card" data-aos="fade-up" data-aos-delay="300">
+                            <h3 class="text-2xl font-bold font-serif mb-4 text-pink-600 text-center">Perkembangan Janin per Minggu</h3>
+                            <div class="w-full px-4">
+                                <label for="week-slider" class="text-center block mb-2 font-semibold">Minggu Ke-<span id="week-label">8</span></label>
+                                <input type="range" id="week-slider" min="4" max="40" value="8" class="w-full h-2 bg-pink-200 rounded-lg appearance-none cursor-pointer">
+                            </div>
+                            <div id="fetal-development-result" class="mt-6 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+                                <!-- content injected by JS -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- A Letter For You Section -->
-            <section class="py-20 bg-white" data-aos="fade-up">
+            <section class="py-20 bg-pink-50" data-aos="fade-up">
                 <div class="container mx-auto px-6 max-w-3xl text-center">
                      <h3 class="text-3xl font-bold font-serif mb-6 section-title">Sebuah Surat untukmu, Calon Bunda...</h3>
-                     <div class="bg-pink-50 p-8 rounded-lg shadow-xl text-left text-gray-700 italic" style="line-height: 1.8;">
+                     <div class="bg-white p-8 rounded-lg shadow-xl text-left text-gray-700 italic" style="line-height: 1.8;">
                         <p>"Untukmu yang sedang membaca ini, saya tahu ada jutaan pertanyaan di kepalamu... rasa cemas yang bercampur dengan kebahagiaan tak terkira. Saya pernah di sana. Saya mengerti.</p>
                         <p class="mt-4">Ebook ini bukan sekadar kumpulan tulisan, ini adalah rangkuman dari semua harapan, doa, dan riset yang saya lakukan agar kamu bisa melewati perjalanan ini dengan senyuman dan kepercayaan diri.</p>
                         <p class="mt-4">Kamu jauh lebih kuat dari yang kamu bayangkan, dan yang terpenting, kamu tidak sendirian dalam perjalanan ini."</p>
@@ -275,7 +329,7 @@
             </section>
 
             <!-- About with.momma Section -->
-            <section class="py-20 bg-pink-50 overflow-hidden" data-aos="fade-right">
+            <section class="py-20 bg-white overflow-hidden" data-aos="fade-right">
                 <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
                     <div class="w-full md:w-1/3 text-center">
                         <img src="https://placehold.co/300x300/FFF1F8/FF6B6B?text=with.momma" alt="Founder of with.momma" class="rounded-full shadow-lg mx-auto w-48 h-48 md:w-64 md:h-64 object-cover transform transition-transform duration-500 hover:rotate-3 hover:scale-105">
@@ -288,9 +342,9 @@
             </section>
 
             <!-- Reviewed by Section -->
-            <section class="py-20 bg-white" data-aos="fade-left">
+            <section class="py-20 bg-pink-50" data-aos="fade-left">
                 <div class="container mx-auto px-6 max-w-4xl">
-                    <div class="bg-pink-50 rounded-2xl shadow-xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+                    <div class="bg-white rounded-2xl shadow-xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
                         <img src="https://placehold.co/150x150/FF6B6B/FFFFFF?text=Bidan" alt="Foto Bidan Profesional" class="w-32 h-32 rounded-full object-cover flex-shrink-0">
                         <div>
                             <h3 class="text-2xl font-bold font-serif mb-2">Informasi Terpercaya & Direview oleh Profesional</h3>
@@ -303,7 +357,7 @@
             </section>
 
             <!-- Solution Section -->
-            <section class="py-20 bg-pink-50 overflow-hidden" data-aos="fade-in">
+            <section class="py-20 bg-white overflow-hidden" data-aos="fade-in">
                 <div class="container mx-auto px-6">
                     <div class="text-center max-w-3xl mx-auto">
                         <h3 class="text-3xl font-bold font-serif mb-4 section-title">Inilah yang Akan Anda Dapatkan</h3>
@@ -313,19 +367,19 @@
                         </button>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                         <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                         <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
                             <h4 class="font-bold text-xl mb-3 text-pink-700">4 Ebook Panduan Lengkap</h4>
                             <p class="text-gray-600">Panduan mendalam per-trimester hingga persiapan persalinan.</p>
                         </div>
-                        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
                             <h4 class="font-bold text-xl mb-3 text-pink-700">Nutrisi & Resep Sehat</h4>
                             <p class="text-gray-600">Rekomendasi makanan, vitamin, serta olahraga yang aman.</p>
                         </div>
-                        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
                             <h4 class="font-bold text-xl mb-3 text-pink-700">Checklist & Printable</h4>
                             <p class="text-gray-600">Daftar perlengkapan bayi hingga persiapan tas rumah sakit.</p>
                         </div>
-                        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+                        <div class="bg-pink-50 p-8 rounded-xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
                             <h4 class="font-bold text-xl mb-3 text-pink-700">Akses Grup Komunitas</h4>
                             <p class="text-gray-600">Bergabung dengan para bunda hebat lainnya di grup eksklusif.</p>
                         </div>
@@ -334,19 +388,19 @@
             </section>
 
             <!-- Testimonials -->
-            <section class="py-20 bg-white overflow-hidden" data-aos="fade-up">
+            <section class="py-20 bg-pink-50 overflow-hidden" data-aos="fade-up">
                 <div class="container mx-auto px-6">
                     <div class="text-center max-w-3xl mx-auto">
                         <h3 class="text-3xl font-bold font-serif mb-12 section-title">Apa Kata Para Bunda with.momma?</h3>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <!-- Text Testimonial 1 -->
-                        <div class="bg-pink-50 p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-white p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="100">
                             <p class="text-gray-700 italic mb-4">"Ebook ini benar-benar jadi penyelamat! Semua kepanikan saya terjawab. Wajib punya untuk kehamilan pertama."</p>
                             <p class="font-bold">- Riana, 29thn (Ibu Baru)</p>
                         </div>
                         <!-- Video Testimonial -->
-                        <div class="bg-pink-50 p-8 rounded-lg transform transition-transform hover:scale-105 flex flex-col justify-center items-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-white p-8 rounded-lg transform transition-transform hover:scale-105 flex flex-col justify-center items-center" data-aos="fade-up" data-aos-delay="200">
                             <div class="relative w-full h-48 bg-gray-200 rounded-lg flex justify-center items-center cursor-pointer group">
                                  <img src="https://placehold.co/400x225/FFC8D8/8C3A5A?text=Tonton+Cerita+Bima" alt="Video Testimonial" class="absolute w-full h-full object-cover rounded-lg">
                                  <div class="absolute w-16 h-16 bg-white/50 rounded-full flex justify-center items-center backdrop-blur-sm group-hover:bg-white transition-colors">
@@ -357,7 +411,7 @@
                             <p class="font-bold text-center">- Bima, 32thn (Calon Ayah)</p>
                         </div>
                         <!-- Text Testimonial 2 -->
-                        <div class="bg-pink-50 p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-white p-8 rounded-lg transform transition-transform hover:scale-105" data-aos="fade-up" data-aos-delay="300">
                             <p class="text-gray-700 italic mb-4">"Komunitasnya luar biasa! Bisa berbagi cerita dan saling menguatkan dengan sesama bumil. Sangat membantu!"</p>
                             <p class="font-bold">- Larasati, 31thn (Hamil Anak Kedua)</p>
                         </div>
@@ -366,7 +420,7 @@
             </section>
 
             <!-- Bonus Section -->
-            <section class="py-20 bg-pink-50" data-aos="zoom-in">
+            <section class="py-20 bg-white" data-aos="zoom-in">
                 <div class="container mx-auto px-6">
                     <div class="text-center max-w-3xl mx-auto" data-aos="fade-up">
                         <h3 class="text-3xl font-bold font-serif mb-4 section-title">Dan Bukan Hanya Itu Saja!</h3>
@@ -374,21 +428,21 @@
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                         <!-- Bonus 1 -->
-                        <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-white" data-aos="fade-up" data-aos-delay="100">
+                        <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-pink-50" data-aos="fade-up" data-aos-delay="100">
                             <img src="https://placehold.co/100x100/FFF1F8/FF6B6B?text=Audio" alt="Audio Relaksasi" class="mx-auto rounded-full mb-4">
                             <h4 class="font-bold text-lg">Panduan Audio Relaksasi</h4>
                             <p class="text-gray-600">Audio MP3 untuk menenangkan diri dan terkoneksi dengan janin.</p>
                             <p class="font-semibold mt-2">Senilai: Rp 125.000</p>
                         </div>
                         <!-- Bonus 2 -->
-                        <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-white" data-aos="fade-up" data-aos-delay="200">
+                        <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-pink-50" data-aos="fade-up" data-aos-delay="200">
                              <img src="https://placehold.co/100x100/FFF1F8/FF6B6B?text=Resep" alt="Meal Plan" class="mx-auto rounded-full mb-4">
                             <h4 class="font-bold text-lg">Meal Plan & Resep Sehat</h4>
                             <p class="text-gray-600">Kumpulan resep praktis dan sehat untuk setiap trimester.</p>
                             <p class="font-semibold mt-2">Senilai: Rp 150.000</p>
                         </div>
                         <!-- Bonus 3 -->
-                        <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-white" data-aos="fade-up" data-aos-delay="300">
+                        <div class="text-center p-6 border-2 border-dashed border-pink-200 rounded-lg bg-pink-50" data-aos="fade-up" data-aos-delay="300">
                              <img src="https://placehold.co/100x100/FFF1F8/FF6B6B?text=Checklist" alt="Checklist" class="mx-auto rounded-full mb-4">
                             <h4 class="font-bold text-lg">Checklist Tas RS (Printable)</h4>
                             <p class="text-gray-600">Checklist cantik siap cetak agar tidak ada yang terlupa.</p>
@@ -564,14 +618,12 @@
         backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
         // Countdown Timer
-        // Set countdown to 3 days from now
         let countdownDate = new Date();
         countdownDate.setDate(countdownDate.getDate() + 3);
 
         const countdownFunction = setInterval(function() {
             const now = new Date().getTime();
             const distance = countdownDate - now;
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -647,6 +699,180 @@
             }, 3000);
         });
 
+        // Weight Gain Calculator
+        document.getElementById('calculate-weight-gain-btn').addEventListener('click', () => {
+            const heightCm = parseFloat(document.getElementById('height-cm').value);
+            const preWeightKg = parseFloat(document.getElementById('pre-weight-kg').value);
+            const resultDiv = document.getElementById('weight-gain-result');
+
+            if (!heightCm || !preWeightKg || heightCm <= 0 || preWeightKg <= 0) {
+                resultDiv.innerHTML = `<p class="text-red-500">Mohon masukkan tinggi dan berat badan yang valid.</p>`;
+                return;
+            }
+
+            const heightM = heightCm / 100;
+            const bmi = preWeightKg / (heightM * heightM);
+            let category = '';
+            let recommendation = '';
+
+            if (bmi < 18.5) {
+                category = 'Berat Badan Kurang (Underweight)';
+                recommendation = '12.5 - 18 kg';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = 'Berat Badan Normal';
+                recommendation = '11.5 - 16 kg';
+            } else if (bmi >= 25 && bmi < 30) {
+                category = 'Berat Badan Berlebih (Overweight)';
+                recommendation = '7 - 11.5 kg';
+            } else {
+                category = 'Obesitas';
+                recommendation = '5 - 9 kg';
+            }
+
+            resultDiv.innerHTML = `
+                <div class="mt-4 p-4 bg-pink-50 rounded-lg border border-pink-200">
+                    <p><strong>IMT Pra-Hamil Anda:</strong> ${bmi.toFixed(2)}</p>
+                    <p><strong>Kategori:</strong> ${category}</p>
+                    <p class="mt-2 font-bold"><strong>Rekomendasi Kenaikan Berat Badan Total:</strong></p>
+                    <p class="text-2xl font-bold text-pink-600">${recommendation}</p>
+                    <p class="text-xs text-gray-500 mt-2">*Ini adalah estimasi umum. Selalu konsultasikan dengan dokter atau bidan Anda.</p>
+                </div>
+            `;
+        });
+        
+        // --- START NEW TOOLS SCRIPT ---
+
+        // 1. Food Safety Checker
+        const foodDatabase = {
+            'sushi': { status: 'Hindari', reason: 'Berisiko mengandung bakteri dan parasit dari ikan mentah. Pilih sushi dengan isian matang.' },
+            'kopi': { status: 'Batasai', reason: 'Konsumsi kafein sebaiknya dibatasi tidak lebih dari 200mg per hari (sekitar 1-2 cangkir kecil).' },
+            'sate': { status: 'Aman', reason: 'Pastikan sate dibakar hingga benar-benar matang sempurna untuk membunuh bakteri.' },
+            'durian': { status: 'Batasai', reason: 'Memiliki kandungan gula dan kalori yang tinggi. Konsumsi dalam jumlah sedang.' },
+            'keju brie': { status: 'Hindari', reason: 'Keju lunak (soft cheese) yang tidak dipasteurisasi berisiko listeria. Pilih keju keras seperti cheddar.' },
+            'keju cheddar': { status: 'Aman', reason: 'Keju keras (hard cheese) umumnya aman karena telah melalui proses pasteurisasi.' },
+            'telur setengah matang': { status: 'Hindari', reason: 'Berisiko mengandung bakteri Salmonella. Pastikan telur dimasak hingga matang sempurna.' },
+            'daging asap': { status: 'Batasai', reason: 'Daging olahan sebaiknya dipanaskan hingga benar-benar panas sebelum dikonsumsi untuk membunuh bakteri.'},
+            'soda': { status: 'Batasai', reason: 'Tinggi gula dan kalori kosong. Sebaiknya dihindari dan perbanyak minum air putih.'},
+            'teh hijau': { status: 'Batasai', reason: 'Mengandung kafein. Batasi konsumsi dan perhatikan total asupan kafein harian Anda.'},
+            'boba': { status: 'Batasai', reason: 'Tinggi gula. Pilih versi lebih sedikit gula dan perhatikan asupan kalori.' },
+            'matcha': { status: 'Batasai', reason: 'Mengandung kafein. Pastikan total asupan kafein harian tidak lebih dari 200mg.' },
+            'es teh manis': { status: 'Batasai', reason: 'Perhatikan kandungan gulanya. Teh tawar jauh lebih baik.' },
+            'jus alpukat': { status: 'Aman', reason: 'Sumber lemak sehat yang baik, tapi batasi gula atau kental manis tambahan.' },
+            'thai tea': { status: 'Batasai', reason: 'Sangat tinggi gula dan susu kental manis. Konsumsi sesekali saja.' },
+            'ayam geprek': { status: 'Aman', reason: 'Pastikan ayam matang sempurna. Batasi level pedas sambalnya untuk menghindari masalah pencernaan.' },
+            'rendang': { status: 'Aman', reason: 'Aman dikonsumsi. Namun, karena tinggi lemak jenuh, konsumsi dalam jumlah sedang.' },
+            'bakso': { status: 'Aman', reason: 'Pastikan daging dan kuahnya matang sempurna. Hindari MSG berlebihan.' },
+            'seblak': { status: 'Batasai', reason: 'Bisa jadi aman jika dibuat sendiri. Batasi level pedas dan MSG. Pastikan semua bahan matang.' },
+            'mie instan': { status: 'Batasai', reason: 'Tinggi sodium dan rendah nutrisi. Konsumsi sesekali dan tambahkan sayuran serta protein.' },
+            'ikan bakar': { status: 'Aman', reason: 'Sumber protein dan omega-3 yang baik. Pastikan dibakar hingga matang, tidak gosong.' },
+            'ikan asin': { status: 'Batasai', reason: 'Sangat tinggi garam (sodium) yang bisa memicu tekanan darah tinggi. Konsumsi sangat sedikit.' },
+            'salad buah': { status: 'Aman', reason: 'Pilihan yang bagus! Pastikan buah-buahan dicuci bersih.' },
+            'salad sayur': { status: 'Aman', reason: 'Sangat direkomendasikan. Pastikan sayuran mentah dicuci dengan sangat bersih untuk menghindari bakteri.' },
+            'croissant': { status: 'Aman', reason: 'Aman, namun tinggi kalori dan lemak. Konsumsi dalam jumlah sedang.' },
+            'dimsum': { status: 'Aman', reason: 'Pastikan dimsum dikukus hingga matang sempurna, terutama yang berisi daging atau udang.' },
+            'ramen': { status: 'Aman', reason: 'Pastikan telur di dalamnya matang sempurna dan kuahnya tidak terlalu asin.' },
+            'tteokbokki': { status: 'Batasai', reason: 'Umumnya aman, namun batasi level pedas dan perhatikan kandungan sodium pada sausnya.' },
+            'cireng': { status: 'Batasai', reason: 'Makanan yang digoreng, tinggi kalori. Konsumsi sesekali saja.' },
+            'baso aci': { status: 'Batasai', reason: 'Sama seperti seblak, batasi level pedas dan MSG. Pastikan matang sempurna.' },
+            'mayones': { status: 'Batasai', reason: 'Pilih mayones komersial yang terpasteurisasi. Hindari mayones buatan sendiri yang memakai telur mentah.' },
+            'madu': { status: 'Aman', reason: 'Madu aman untuk ibu hamil, namun tidak untuk bayi di bawah 1 tahun.' },
+            'kecap': { status: 'Aman', reason: 'Kecap aman, namun perhatikan kandungan sodiumnya.' }
+        };
+
+        const foodInput = document.getElementById('food-input');
+        const checkFoodBtn = document.getElementById('check-food-btn');
+        const foodResultDiv = document.getElementById('food-safety-result');
+
+        const performFoodCheck = () => {
+            const query = foodInput.value.toLowerCase().trim();
+            if (!query) {
+                foodResultDiv.innerHTML = `<p class="text-red-500">Silakan masukkan nama makanan.</p>`;
+                return;
+            }
+
+            let found = false;
+            for (const key in foodDatabase) {
+                if (query.includes(key)) {
+                    const result = foodDatabase[key];
+                    let statusClass = '';
+                    let statusText = '';
+                    if (result.status === 'Aman') {
+                        statusClass = 'bg-green-100 border-green-500 text-green-800';
+                        statusText = 'Aman Dikonsumsi';
+                    } else if (result.status === 'Batasai') {
+                        statusClass = 'bg-yellow-100 border-yellow-500 text-yellow-800';
+                        statusText = 'Batasai Konsumsi';
+                    } else {
+                        statusClass = 'bg-red-100 border-red-500 text-red-800';
+                        statusText = 'Sebaiknya Dihindari';
+                    }
+                    foodResultDiv.innerHTML = `
+                        <div class="p-4 mt-4 rounded-lg border ${statusClass}">
+                            <p class="font-bold text-lg">${statusText}</p>
+                            <p>${result.reason}</p>
+                        </div>
+                    `;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                foodResultDiv.innerHTML = `
+                    <div class="p-4 mt-4 rounded-lg border bg-gray-100 border-gray-400 text-gray-700">
+                        <p class="font-bold">Informasi tidak ditemukan.</p>
+                        <p>Untuk makanan ini, sebaiknya konsultasikan langsung dengan dokter atau bidan Anda untuk kepastian.</p>
+                    </div>
+                `;
+            }
+        };
+        
+        checkFoodBtn.addEventListener('click', performFoodCheck);
+        foodInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performFoodCheck();
+            }
+        });
+
+        // 2. Fetal Development Tracker
+        const fetalDevelopmentData = {
+            '4': { size: 'biji poppy', development: 'Sistem peredaran darah mulai terbentuk dan jantung kecilnya mulai berdetak.', tip: 'Mulai konsumsi asam folat secara rutin ya, Bun.' },
+            '8': { size: 'buah raspberry', development: 'Lengan dan kaki mulai memanjang, serta jari-jari tangan dan kaki mulai terbentuk.', tip: 'Morning sickness mungkin sedang di puncaknya. Makan dalam porsi kecil tapi sering.' },
+            '12': { size: 'buah plum', development: 'Organ-organ vitalnya telah terbentuk sepenuhnya. Kini ia bisa menguap dan meregangkan tubuh!', tip: 'Risiko keguguran menurun drastis. Waktunya berbagi kabar bahagia!' },
+            '16': { size: 'buah alpukat', development: 'Tulangnya mulai mengeras dan ia bisa mendengar suara dari luar, termasuk suara Bunda.', tip: 'Ajak si kecil bicara atau perdengarkan musik lembut.' },
+            '20': { size: 'buah pisang', development: 'Bunda mungkin mulai merasakan gerakan pertamanya! Kulitnya mulai dilapisi vernix caseosa.', tip: 'Ini waktu yang tepat untuk USG pertengahan kehamilan.' },
+            '24': { size: 'bonggol jagung', development: 'Paru-parunya sedang berkembang pesat dan ia mulai berlatih "bernapas" dengan menelan cairan ketuban.', tip: 'Perhatikan tanda-tanda persalinan prematur dan banyak istirahat.' },
+            '28': { size: 'terong besar', development: 'Matanya sudah bisa membuka dan berkedip. Ia juga mulai bermimpi!', tip: 'Mulai hitung tendangan janin setiap hari untuk memantau aktivitasnya.' },
+            '32': { size: 'buah nanas kecil', development: 'Lemak di bawah kulitnya semakin banyak, membuatnya terlihat lebih berisi. Semua indranya berfungsi.', tip: 'Bunda mungkin merasa lebih cepat lelah. Posisikan tidur miring ke kiri.' },
+            '36': { size: 'seikat sawi', development: 'Posisinya kemungkinan besar sudah kepala di bawah, siap untuk lahir. Paru-parunya hampir matang.', tip: 'Siapkan tas persalinan dan diskusikan rencana persalinan dengan dokter.' },
+            '40': { size: 'semangka kecil', development: 'Si kecil sudah cukup bulan dan siap bertemu Bunda kapan saja! ', tip: 'Tetap tenang dan nikmati hari-hari terakhir kehamilan. Lakukan relaksasi.' }
+        };
+        
+        const weekSlider = document.getElementById('week-slider');
+        const weekLabel = document.getElementById('week-label');
+        const fetalResultDiv = document.getElementById('fetal-development-result');
+
+        const updateFetalInfo = (week) => {
+            weekLabel.textContent = week;
+            const data = fetalDevelopmentData[week] || (week > 4 && week < 8 ? fetalDevelopmentData['4'] : (week > 8 && week < 12 ? fetalDevelopmentData['8'] : (week > 12 && week < 16 ? fetalDevelopmentData['12'] : (week > 16 && week < 20 ? fetalDevelopmentData['16'] : (week > 20 && week < 24 ? fetalDevelopmentData['20'] : (week > 24 && week < 28 ? fetalDevelopmentData['24'] : (week > 28 && week < 32 ? fetalDevelopmentData['28'] : (week > 32 && week < 36 ? fetalDevelopmentData['32'] : (week > 36 && week < 40 ? fetalDevelopmentData['36'] : fetalDevelopmentData['40'])))))))));
+            
+            fetalResultDiv.innerHTML = `
+                <div class="flex-shrink-0 w-32 h-32 mx-auto md:mx-0">
+                    <img src="https://placehold.co/150x150/FFF1F8/FF6B6B?text=${data.size}" alt="Ukuran Janin" class="rounded-full object-cover w-full h-full">
+                </div>
+                <div>
+                    <p class="mb-2">Saat ini, ukuran si kecil kira-kira sebesar <strong>${data.size}</strong>.</p>
+                    <p class="mb-2"><strong>Perkembangan Utama:</strong> ${data.development}</p>
+                    <p class="mt-4 p-3 bg-pink-100 rounded-lg"><strong>✨ Tips untuk Bunda:</strong> ${data.tip}</p>
+                </div>
+            `;
+        };
+        
+        weekSlider.addEventListener('input', (e) => updateFetalInfo(e.target.value));
+        // Initial call
+        document.addEventListener('DOMContentLoaded', () => updateFetalInfo(weekSlider.value));
+
+        // --- END NEW TOOLS SCRIPT ---
     </script>
 </body>
 </html>
